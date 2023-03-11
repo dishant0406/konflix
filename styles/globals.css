@@ -4,8 +4,9 @@
 
 body{
   overflow-x: hidden;
+  background-color: #05161e;
 }
 
-.slick-list{
+.index .slick-list{
   overflow: visible !important;
 }

@@ -47,7 +47,7 @@ const Home = ({ topAnime, recentEpisodes }) => {
 
 
   return (
-    <div className='bg-black relative'>
+    <div className='bg-black index relative'>
       <div className='fixed top-[40%] right-[48%]'>
         <ClipLoader loading={loading} color={'#fff'} size={50} />
       </div>

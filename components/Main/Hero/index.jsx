@@ -2,11 +2,12 @@ import React from 'react'
 import { RiSearch2Line as CgSearch } from 'react-icons/ri'
 import { AiFillYoutube } from 'react-icons/ai'
 import {poppinsBold,poppinsMedium} from 'utils/Fonts/fonts'
+import {getYoutubeId, Search} from 'components'
 
 const Hero = ({selectedAnime, topAnimes,setSelectedAnime}) => {
   return (
     <div className='w-[100vw] transition-all duration-300 items-center h-[50vh] flex flex-col justify-between ' style={{
-      backgroundImage: `url(${selectedAnime?.animeDetails?.image})`,
+      backgroundImage: `url(https://i3.ytimg.com/vi/${getYoutubeId(selectedAnime.animeDetails.trailer)}/maxresdefault.jpg)`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -14,27 +15,7 @@ const Hero = ({selectedAnime, topAnimes,setSelectedAnime}) => {
       boxShadow: '0px -40px 45px -1px rgba(5,22,30,1) inset'
     }}>
 
-      <div className='w-[90vw] flex justify-between mt-[1rem]'>
-        <p style={{
-          textShadow: '0px 0px 10px rgba(0,0,0,1)'
-
-        }} className={`${poppinsBold.className
-          } text-white text-[30px] font-bold`}>
-          KonFlix
-        </p>
-        <div className='relative'>
-          <input style={{
-            //glassmorphism
-            boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
-            backdropFilter: 'blur(10px)',
-            backgroundColor: 'rgba( 0,0,0,0.45)'
-
-          }} type='text' autoComplete="new-password" placeholder='Search for a anime' className={`${poppinsMedium.className} pr-[2.5rem] max-w-[300px] tracking-wider text-white !outline-none px-[1rem] h-[2.5rem] border-none  rounded-2xl`} />
-          <div className='absolute right-[20px] top-[12px]'>
-            <CgSearch className='text-white scale-[1.30]' />
-          </div>
-        </div>
-      </div>
+      <Search/>
 
       <div className='w-[90vw]'>
         <p style={{

@@ -10,6 +10,7 @@ const GET_TOP_ANIME = gql`
         id
         releaseDate
         subOrDub
+        trailer
     }
   }
 }
@@ -38,17 +39,13 @@ query Query($animeDetailsId: ID!) {
     subOrDub
     releaseDate
     totalEpisodes
+    description
     trailer
     title
+    type
     episodes {
       id
-      streamLinks {
-        episodeId
-        isM3U8
-        url
-        quality
-      }
-    }  
+    }
   }
 }
 `
