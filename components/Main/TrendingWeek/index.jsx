@@ -11,13 +11,12 @@ const settings = {
   arrows: false,
   //items center
   centerMode: true,
-  centerPadding: '0px',
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 6000,
   cssEase: "linear",
-  //list overflow y visible
-  
+  //scale overflow visible
+  centerPadding: '0px',
   responsive: [
     {
       breakpoint: 1024,
@@ -59,7 +58,7 @@ const settings = {
 const TrendingWeek = ({topAnimes, title}) => {
   return (
     <div className='w-[100vw] flex flex-col justify-center items-center'>
-    <div className='w-[90vw] mt-[6rem]'>
+    <div className='w-[90vw] overflow-x-hidden h-[350px] mt-[6rem]'>
       <p className={`${poppinsMedium.className} text-white text-[20px] font-bold`}>
         {title || '🔥 TRENDING THIS WEEK'}
       </p>
@@ -70,7 +69,7 @@ const TrendingWeek = ({topAnimes, title}) => {
             const details = anime?.animeDetails
             return (
               <div key={details?.id}>
-                <AnimeCard image={details?.image} title={details?.title} release={details?.releaseDate} other={details?.subOrDub} />
+                <AnimeCard id={details?.id} image={details?.image} title={details?.title} release={details?.releaseDate} other={details?.subOrDub} />
               </div>
             )
           })

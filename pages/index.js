@@ -2,8 +2,8 @@ import { GET_TOP_ANIME, GET_RECENT_ANIME } from 'utils/graphql/Queries'
 import { client } from "./_app";
 import { useState } from 'react';
 import { Hero, TrendingWeek, RecentAnimes } from 'components'
-
-
+import { ClipLoader } from 'react-spinners'
+import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from 'react-icons/md'
 
 const Home = ({ topAnime, recentEpisodes }) => {
   const [topAnimes, setTopAnimes] = useState(topAnime?.topAnime)
@@ -11,9 +11,11 @@ const Home = ({ topAnime, recentEpisodes }) => {
   const [hasNextPage, setHasNextPage] = useState(recentEpisodes.recentEpisodes.hasNextPage)
   const [recentEpi, setRecentEpisodes] = useState(recentEpisodes.recentEpisodes.results)
   const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
 
   const handleNextPage = async () => {
     if (hasNextPage) {
+      setLoading(true)
       const { data: recentEpisodes } = await client.query({
         query: GET_RECENT_ANIME,
         variables: {
@@ -23,17 +25,56 @@ const Home = ({ topAnime, recentEpisodes }) => {
       setRecentEpisodes(recentEpisodes.recentEpisodes.results)
       setHasNextPage(recentEpisodes.recentEpisodes.hasNextPage)
       setPage(page + 1)
+      setLoading(false)
     }
   }
 
-  return (
-    <div className='min-h-[100vh] w-[100vw] pb-[125px] bg-[#05161e]'>
-      <Hero selectedAnime={selectedAnime} setSelectedAnime={setSelectedAnime} topAnimes={topAnimes} />
-      <TrendingWeek topAnimes={topAnimes} />
-      <RecentAnimes recentAnimes={recentEpi} />
-      <div className='w-[100vw] flex justify-center'>
-        <button className='bg-[#0f2d3d] text-white py-2 mt-[2rem] px-4 rounded-lg' onClick={handleNextPage}>Next</button>
+  const handlePreviousPage = async () => {
+    if (page > 1) {
+      setLoading(true)
+      const { data: recentEpisodes } = await client.query({
+        query: GET_RECENT_ANIME,
+        variables: {
+          page: page - 1
+        }
+      })
+      setRecentEpisodes(recentEpisodes.recentEpisodes.results)
+      setHasNextPage(recentEpisodes.recentEpisodes.hasNextPage)
+      setPage(page - 1)
+      setLoading(false)
+    }
+  }
 
+
+  return (
+    <div className='bg-black relative'>
+      <div className='fixed top-[40%] right-[48%]'>
+        <ClipLoader loading={loading} color={'#fff'} size={50} />
+      </div>
+      <div className={`min-h-[100vh] ${loading && 'opacity-50'} w-[100vw] pb-[125px] bg-[#05161e]`}>
+        <Hero selectedAnime={selectedAnime} setSelectedAnime={setSelectedAnime} topAnimes={topAnimes} />
+        <TrendingWeek topAnimes={topAnimes} />
+        <RecentAnimes recentAnimes={recentEpi} />
+
+        <div className='w-[100vw] gap-[1rem] flex justify-center'>
+          <button disabled={page == 1} style={{
+            //glassmorphism
+            boxShadow: '0 8px 32px 0 rgba( 31, 38, 100, 0.69 )',
+            backdropFilter: 'blur(10px)',
+            backgroundColor: 'rgba( 0,0,0,0.05)'
+          }} className={`text-white ${page == 1 && 'opacity-[0.3]'} py-2 mt-[2rem] px-2 rounded-lg`} onClick={handlePreviousPage}>
+            <MdOutlineNavigateBefore className='text-white' />
+          </button>
+          <button style={{
+            //glassmorphism
+            boxShadow: '0 8px 32px 0 rgba( 31, 38, 100, 0.69 )',
+            backdropFilter: 'blur(10px)',
+            backgroundColor: 'rgba( 0,0,0,0.05)'
+          }} className={`text-white ${!hasNextPage && 'opacity-[0.3]'} py-2 mt-[2rem] px-2 rounded-lg`} onClick={handleNextPage}>
+            <MdOutlineNavigateNext className='text-white' />
+          </button>
+
+        </div>
       </div>
     </div>
   )

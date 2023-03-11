@@ -30,7 +30,31 @@ const GET_RECENT_ANIME = gql`
 }
 `
 
+const GET_SINGLE_ANIME = gql`
+query Query($animeDetailsId: ID!) {
+  animeDetails(id: $animeDetailsId) {
+    image
+    genres
+    subOrDub
+    releaseDate
+    totalEpisodes
+    trailer
+    title
+    episodes {
+      id
+      streamLinks {
+        episodeId
+        isM3U8
+        url
+        quality
+      }
+    }  
+  }
+}
+`
+
 export {
   GET_TOP_ANIME,
-  GET_RECENT_ANIME
+  GET_RECENT_ANIME,
+  GET_SINGLE_ANIME
 }
