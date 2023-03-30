@@ -8,8 +8,8 @@ import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from 'react-icons/md'
 const Home = ({ topAnime, recentEpisodes }) => {
   const [topAnimes, setTopAnimes] = useState(topAnime?.topAnime)
   const [selectedAnime, setSelectedAnime] = useState(topAnimes[0])
-  const [hasNextPage, setHasNextPage] = useState(recentEpisodes.recentEpisodes.hasNextPage)
-  const [recentEpi, setRecentEpisodes] = useState(recentEpisodes.recentEpisodes.results)
+  const [hasNextPage, setHasNextPage] = useState(recentEpisodes.recentEpisodes.length)
+  const [recentEpi, setRecentEpisodes] = useState(recentEpisodes.recentEpisodes)
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
@@ -22,8 +22,8 @@ const Home = ({ topAnime, recentEpisodes }) => {
           page: page + 1
         }
       })
-      setRecentEpisodes(recentEpisodes.recentEpisodes.results)
-      setHasNextPage(recentEpisodes.recentEpisodes.hasNextPage)
+      setRecentEpisodes(recentEpisodes.recentEpisodes)
+      setHasNextPage(recentEpisodes.recentEpisodes?.length ? true : false)
       setPage(page + 1)
       setLoading(false)
     }
@@ -38,8 +38,8 @@ const Home = ({ topAnime, recentEpisodes }) => {
           page: page - 1
         }
       })
-      setRecentEpisodes(recentEpisodes.recentEpisodes.results)
-      setHasNextPage(recentEpisodes.recentEpisodes.hasNextPage)
+      setRecentEpisodes(recentEpisodes.recentEpisodes)
+      setHasNextPage(recentEpisodes.recentEpisodes?.length ? true : false)
       setPage(page - 1)
       setLoading(false)
     }
@@ -84,6 +84,7 @@ export async function getStaticProps() {
   const { data: topAnime } = await client.query({
     query: GET_TOP_ANIME,
   });
+
   const { data: recentEpisodes } = await client.query({
     query: GET_RECENT_ANIME
   })

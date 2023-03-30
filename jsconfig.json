@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vidstack/globals"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["*"],

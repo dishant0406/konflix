@@ -1,14 +1,14 @@
 import '../styles/globals.css'
 import ApolloClient from "apollo-boost";
-import { ApolloProvider } from 'react-apollo';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Router from "next/router";
 import { useState, useEffect } from 'react'
-import { PacmanLoader } from 'react-spinners'
+import 'vidstack/styles/defaults.css';
+import "plyr-react/plyr.css"
 
 export const client = new ApolloClient({
-  uri: 'http://localhost:9000/graphql/',
+  uri: 'https://api.konflix.xyz/graphql/',
   //ignore graphql errors
   onError: ({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
@@ -31,11 +31,9 @@ export default function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const start = () => {
-      console.log("start");
       setLoading(true);
     };
     const end = () => {
-      console.log("findished");
       setLoading(false);
     };
     Router.events.on("routeChangeStart", start);

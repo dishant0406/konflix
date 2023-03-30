@@ -3,13 +3,16 @@ import { client } from "pages/_app";
 import { AnimeHero } from '@/components';
 import { poppinsBold } from '@/utils/Fonts/fonts';
 import dynamic from 'next/dynamic'
+import {useRouter} from 'next/router'
 import { AiFillYoutube } from 'react-icons/ai'
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 const WatchAnime = ({anime}) => {
+  const router = useRouter()
+  const {id} = router.query
   return (
     <div className='bg-[#05161e] min-h-[100vh] pb-[50px]'>
-      <AnimeHero anime={anime}/>
+      <AnimeHero anime={anime} animeId={id}/>
       <div className='w-[100vw]  mt-[10rem] md:mt-[1rem] flex justify-center'>
         <div className='mt-[6rem] w-[90vw]'>
             <p style={{
@@ -21,7 +24,7 @@ const WatchAnime = ({anime}) => {
             <p style={{
               textShadow: '0px 0px 10px rgba(0,0,0,1)'
             }} className={`${poppinsBold.className} transition-all duration-300 text-[14px] md:text-[16px] tracking-tight font-bold mb-[1rem] text-white`}>
-              {anime?.animeDetails?.description}
+              {anime?.animeDetails?.synopsis}
             </p>
         </div>
       </div>

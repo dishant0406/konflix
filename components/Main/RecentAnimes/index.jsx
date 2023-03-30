@@ -14,7 +14,7 @@ const RecentAnimes = ({recentAnimes, title}) => {
 
         {
           recentAnimes.map((anime, index) => {
-            const {animeId, animeTitle, episodeId, episodeNumber, image} = anime
+            const {animeId, name:animeTitle, episodeId, episodeNum:episodeNumber, imgUrl:image} = anime
             return (
               <div key={animeId}>
                 <AnimeCard id={animeId} image={image} title={animeTitle} release={new Date().getFullYear()} other={`Epis. ${episodeNumber}`} />

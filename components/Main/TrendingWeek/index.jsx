@@ -66,10 +66,10 @@ const TrendingWeek = ({topAnimes, title}) => {
         <Slider {...settings}>
         {
           topAnimes.map((anime, index) => {
-            const details = anime?.animeDetails
+            const details = anime
             return (
               <div key={details?.id}>
-                <AnimeCard id={details?.id} image={details?.image} title={details?.title} release={details?.releaseDate} other={details?.subOrDub} />
+                <AnimeCard id={details?.id} image={details?.imgUrl} title={details?.title} />
               </div>
             )
           })

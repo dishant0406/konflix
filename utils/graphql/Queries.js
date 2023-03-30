@@ -1,51 +1,89 @@
 import { gql } from "apollo-boost";
 
 const GET_TOP_ANIME = gql`
-  query TopAnime($page: Int) {
+query TopAnime($page: Int) {
   topAnime(page: $page) {
-    animeDetails {
-        title
-        otherName
-        image
-        id
-        releaseDate
-        subOrDub
-        trailer
-    }
+    imgUrl
+    title
+    trailer
+    id
   }
 }
 `
 
 const GET_RECENT_ANIME = gql`
-  query RecentEpisodes($page: Int) {
+query RecentEpisodes($page: Int) {
   recentEpisodes(page: $page) {
-    hasNextPage
-    results {
-      animeId
-      animeTitle
-      episodeId
-      episodeNumber
-      image
-    }
+    animeId
+    name
+    episodeId
+    episodeNum
+    imgUrl  
   }
 }
 `
 
 const GET_SINGLE_ANIME = gql`
-query Query($animeDetailsId: ID!) {
+query AnimeDetails($animeDetailsId: ID) {
   animeDetails(id: $animeDetailsId) {
-    image
+    id
     genres
-    subOrDub
-    releaseDate
+    status
+    name
+    released
     totalEpisodes
-    description
+    synopsis
     trailer
-    title
     type
+    imageUrl
+    episode_id {
+      episodeId
+    }
+  }
+}
+`
+
+const GET_STREAMING_LINK = gql`
+query StreamLinkDetails($animeDetailsId: ID, $streamLinkDetailsId: ID) {
+  streamLinkDetails(id: $streamLinkDetailsId) {
+    hls
+    nextEpLink
+    nextEpText
+    prevEpLink
+    prevEpText
+    streamsb
+    xstreamcdn
+    anime_info
+    animeNameWithEP
+    ep_num  
+  }
+  animeDetails(id: $animeDetailsId) {
+    name
+    imageUrl
+    episode_id {
+      episodeId
+    }  
+  }
+}
+`
+
+const GET_EPISODES_ID = gql`
+query Episodes($animeDetailsId: ID) {
+  animeDetails(id: $animeDetailsId) {
     episodes {
       id
+      number
     }
+  }
+}
+`
+
+const GET_SEARCH_ANIME = gql`
+query AnimeSearch($animeSearchId: ID) {
+  animeSearch(id: $animeSearchId) {
+    imgUrl
+    id
+    title  
   }
 }
 `
@@ -53,5 +91,8 @@ query Query($animeDetailsId: ID!) {
 export {
   GET_TOP_ANIME,
   GET_RECENT_ANIME,
-  GET_SINGLE_ANIME
+  GET_SINGLE_ANIME,
+  GET_STREAMING_LINK,
+  GET_EPISODES_ID,
+  GET_SEARCH_ANIME
 }

@@ -2,6 +2,7 @@
 import { FaPlay } from 'react-icons/fa'
 import {poppinsBold,poppinsMedium} from 'utils/Fonts/fonts'
 import {Search} from 'components'
+import router from 'next/router'
 
 
 
@@ -23,30 +24,29 @@ const InfoCard = ({type, title})=>{
   )
 }
 
-const Play = ()=>{
+const Play = ({epi,animeId})=>{
+  const handleGoto = ()=>{
+    router.push(`/watch/${animeId}/${epi}`)
+  }
   return (
-    <div className={`w-[200px] bg-[#39a936] hover:scale-[1.15] flex items-center justify-center cursor-pointer transition-all duration-300  border-white border-[2px] scale-110 h-[120px]  rounded-[20px]`}>
-              <FaPlay className='text-white scale-[2]' />
-            </div>
+    <div onClick={handleGoto} className={`w-[200px] bg-[#39a936] hover:scale-[1.15] flex items-center justify-center cursor-pointer transition-all duration-300  border-white border-[2px] scale-110 h-[120px]  rounded-[20px]`}>
+      <FaPlay className='text-white scale-[2]' />
+    </div>
   )
 }
 
 export function getYoutubeId(url) {
-  // Regular expression to match the video ID
   var pattern = /(?:\/embed\/|watch\?v=)([\w-]{11})/;
-
-  // Test the URL against the pattern
   var match = url.match(pattern);
-
-  // Return the video ID if a match is found, otherwise return null
   return match ? match[1] : null;
 }
 
 
-const AnimeHero = ({anime}) => {
+const AnimeHero = ({anime,animeId}) => {
+  anime = anime?.animeDetails
   return (
     <div className='w-[100vw] transition-all duration-300 items-center h-[50vh] flex flex-col justify-between ' style={{
-      backgroundImage: `url(${anime.animeDetails.trailer?`https://img.youtube.com/vi/${getYoutubeId(anime.animeDetails.trailer)}/maxresdefault.jpg`:anime?.animeDetails?.image})`,
+      backgroundImage: `url(${anime.trailer?`https://i.ytimg.com/vi_webp/${getYoutubeId(anime.trailer)}/maxresdefault.webp`:anime?.imageUrl})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -60,11 +60,11 @@ const AnimeHero = ({anime}) => {
         <p style={{
           textShadow: '0px 0px 10px rgba(0,0,0,1)'
         }} className={`${poppinsBold.className} transition-all duration-300 text-[38px] md:text-[56px] tracking-tight font-bold  text-white`}>
-          {anime?.animeDetails?.title.toUpperCase()}
+          {anime?.name?.toUpperCase()}
         </p>
-        <div className='flex mb-[2rem] gap-[10px]'>
+        <div className='flex flex-wrap mb-[2rem] gap-[10px]'>
           {
-            anime?.animeDetails?.genres?.map((genre, index) => {
+            anime?.genres?.map((genre, index) => {
               return (
                 <div className='bg-[#686868] text-white border border-white rounded-md px-[5px] py-[2px]'>
                   <p className={`${poppinsMedium.className} text-[14px]`}>
@@ -77,12 +77,12 @@ const AnimeHero = ({anime}) => {
         </div>
         <div className='w-[90vw] bg-[] flex flex-wrap justify-center gap-[40px]  mb-[-3rem]  '>
             <div className='md:w-[200px] md:inline-block md:mt-[0] mt-[2rem] w-[300px] flex justify-center'>
-              <Play />
+              <Play animeId={animeId} epi={anime?.episode_id?.[0]?.episodeId} />
             </div>
-            <InfoCard title={anime?.animeDetails?.subOrDub==='sub' ? 'SUBBED' : 'DUBBED'} type='AUDIO TYPE' />
-            <InfoCard title={anime?.animeDetails?.totalEpisodes} type='EPISODES NUM' />
-            <InfoCard title={anime?.animeDetails?.releaseDate} type='RELEASE DATE' />
-            <InfoCard title={anime?.animeDetails?.type?.toLowerCase().replace('anime','').toUpperCase()} type='ANIME TYPE' />
+            <InfoCard title={anime?.status} type='AUDIO STATUS' />
+            <InfoCard title={anime?.totalEpisodes} type='EPISODES NUM' />
+            <InfoCard title={anime?.released} type='RELEASE DATE' />
+            <InfoCard title={anime?.type?.toLowerCase().replace('anime','').toUpperCase()} type='ANIME TYPE' />
           
         </div>
 

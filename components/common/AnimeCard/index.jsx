@@ -24,7 +24,7 @@ const AnimeCard = ({title, image, release, other, id}) => {
                 <p className={`${poppinsMedium.className} ml-[5px] text-[14px] text-white mt-[8px]`}>
                   {title.slice(0, 18) + '...'}
                 </p>
-                <div className='flex items-center gap-[10px] mt-[5px]'>
+                {release && other && <div className='flex items-center gap-[10px] mt-[5px]'>
                   <p className={`${poppinsBold.className} ml-[5px] text-[14px] text-white`}>
                     {release || 'N/A'}
                   </p>
@@ -33,7 +33,7 @@ const AnimeCard = ({title, image, release, other, id}) => {
                       {other || 'N/A'}
                     </p>
                   </div>
-                </div>
+                </div>}
               </div>
   )
 }
