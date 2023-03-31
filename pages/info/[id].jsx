@@ -5,12 +5,30 @@ import { poppinsBold } from '@/utils/Fonts/fonts';
 import dynamic from 'next/dynamic'
 import {useRouter} from 'next/router'
 import { AiFillYoutube } from 'react-icons/ai'
+import Head from 'next/head';
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 const WatchAnime = ({anime}) => {
   const router = useRouter()
   const {id} = router.query
   return (
+    <>
+    <Head>
+      <title>{anime?.animeDetails?.name}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta charSet="utf-8" />
+      <link rel="icon" href="/Images/favicon.ico" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <meta name="description" content={anime?.animeDetails?.synopsis} />
+      <meta property="og:title" content={anime?.animeDetails?.name} />
+      <meta property="og:description" content={anime?.animeDetails?.synopsis} />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content="@KonflixOfficial" />
+      <meta name="twitter:title" content={anime?.animeDetails?.name} />
+      <meta name="twitter:description" content={anime?.animeDetails?.synopsis} />
+    </Head>
     <div className='bg-[#05161e] min-h-[100vh] pb-[50px]'>
       <AnimeHero anime={anime} animeId={id}/>
       <div className='w-[100vw]  mt-[10rem] md:mt-[1rem] flex justify-center'>
@@ -50,6 +68,7 @@ const WatchAnime = ({anime}) => {
       </div>
 
     </div>
+    </>
   )
 }
 

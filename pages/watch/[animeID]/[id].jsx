@@ -5,6 +5,7 @@ import { GET_STREAMING_LINK } from '@/utils/graphql/Queries'
 import { useEffect, useRef, useState } from 'react'
 import Plyr from "plyr-react"
 import Hls from "hls.js";
+import Head from 'next/head'
 
 function capitalizeAndSplit(inputString) {
   if(inputString){
@@ -173,6 +174,12 @@ const Watch = () => {
 
   return (
     <div className='relative'>
+      <Head>
+        <title>{capitalizeAndSplit(episodeId)} | Konflix</title>
+        <meta name="description" content="Konflix is a free anime streaming website. Watch anime online in high quality for free. Watch and download anime in high quality 720p, 1080p English subbed and dubbed on any device." />
+        <link rel="icon" href="/Images/favicon.ico" />
+
+      </Head>
       {loading && <div className='fixed  z-[100] top-[45%] right-[45%]'>
         <img className='h-[100px]' src='/Images/loading.webp' />
       </div>}

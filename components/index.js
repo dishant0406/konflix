@@ -5,6 +5,7 @@ import RecentAnimes from './Main/RecentAnimes/index';
 import AnimeHero from './AnimePage/AnimeHero/index';
 import { getYoutubeId } from "./AnimePage/AnimeHero/index";
 import Search from './common/Search/index';
+import SEO from './common/SEO/index';
 
 export {
   Hero,
@@ -13,5 +14,6 @@ export {
   RecentAnimes,
   AnimeHero,
   getYoutubeId,
-  Search
+  Search,
+  SEO
 }
