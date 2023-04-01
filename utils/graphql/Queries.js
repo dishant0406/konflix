@@ -60,6 +60,7 @@ query StreamLinkDetails($animeDetailsId: ID, $streamLinkDetailsId: ID) {
   animeDetails(id: $animeDetailsId) {
     name
     imageUrl
+    genres
     episode_id {
       episodeId
     }  
@@ -88,11 +89,22 @@ query AnimeSearch($animeSearchId: ID) {
 }
 `
 
+const GET_RECOMMEDED_ANIME = gql`
+query RecommandedAnime($genre: String) {
+  recommandedAnime(genre: $genre) {
+    animeTitle
+    animeId
+    animeImg
+  }
+}
+`
+
 export {
   GET_TOP_ANIME,
   GET_RECENT_ANIME,
   GET_SINGLE_ANIME,
   GET_STREAMING_LINK,
   GET_EPISODES_ID,
-  GET_SEARCH_ANIME
+  GET_SEARCH_ANIME,
+  GET_RECOMMEDED_ANIME
 }

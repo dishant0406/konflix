@@ -60,7 +60,9 @@ const AnimeHero = ({anime,animeId}) => {
         <p style={{
           textShadow: '0px 0px 10px rgba(0,0,0,1)'
         }} className={`${poppinsBold.className} transition-all duration-300 text-[38px] md:text-[56px] tracking-tight font-bold  text-white`}>
-          {anime?.name?.toUpperCase()}
+          {
+            anime?.name?.length> 40 ? anime?.name?.slice(0,40).toUpperCase()+'...' : anime?.name?.toUpperCase()
+          }
         </p>
         <div className='flex flex-wrap mb-[2rem] gap-[10px]'>
           {
