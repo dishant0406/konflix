@@ -1,6 +1,6 @@
 import { GET_TOP_ANIME, GET_RECENT_ANIME } from 'utils/graphql/Queries'
 import { client } from "./_app";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Hero, TrendingWeek, RecentAnimes } from 'components'
 import { ClipLoader } from 'react-spinners'
 import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from 'react-icons/md'
@@ -44,6 +44,29 @@ const Home = ({ topAnime, recentEpisodes }) => {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    const getAnime = async () => {
+      const { data: topAnime } = await client.query({
+        query: GET_TOP_ANIME,
+        variables: {
+          page: 1
+        }
+      });
+
+      const { data: recentEpisodes } = await client.query({
+        query: GET_RECENT_ANIME
+      })
+
+      setTopAnimes(topAnime?.topAnime)
+      setSelectedAnime(topAnimes[0])
+      setRecentEpisodes(recentEpisodes.recentEpisodes)
+      setHasNextPage(recentEpisodes.recentEpisodes?.length ? true : false)
+    }
+
+    getAnime()
+
+  }, [])
 
 
   return (
