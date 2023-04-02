@@ -46,7 +46,7 @@ const AnimeHero = ({anime,animeId}) => {
   anime = anime?.animeDetails
   return (
     <div className='w-[100vw] transition-all duration-300 items-center h-[50vh] flex flex-col justify-between ' style={{
-      backgroundImage: `url(${anime.trailer?`https://i.ytimg.com/vi_webp/${getYoutubeId(anime.trailer)}/maxresdefault.webp`:anime?.imageUrl})`,
+      backgroundImage: `url(${anime.trailer?`https://i.ytimg.com/vi_webp/${getYoutubeId(anime.trailer)}/sddefault.webp`:anime?.imageUrl})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -61,7 +61,7 @@ const AnimeHero = ({anime,animeId}) => {
           textShadow: '0px 0px 10px rgba(0,0,0,1)'
         }} className={`${poppinsBold.className} transition-all duration-300 text-[38px] md:text-[56px] tracking-tight font-bold  text-white`}>
           {
-            anime?.name?.length> 40 ? anime?.name?.slice(0,40).toUpperCase()+'...' : anime?.name?.toUpperCase()
+            anime?.name?.length> 35 ? anime?.name?.slice(0,35).toUpperCase()+'...' : anime?.name?.toUpperCase()
           }
         </p>
         <div className='flex flex-wrap mb-[2rem] gap-[10px]'>

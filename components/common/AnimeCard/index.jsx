@@ -22,7 +22,7 @@ const AnimeCard = ({title, image, release, other, id}) => {
                       </div>
                 </div>
                 <p className={`${poppinsMedium.className} ml-[5px] text-[14px] text-white mt-[8px]`}>
-                  {title.slice(0, 18) + '...'}
+                  {title?.length>18? title.slice(0, 18) + '...': title}
                 </p>
                 {release && other && <div className='flex items-center gap-[10px] mt-[5px]'>
                   <p className={`${poppinsBold.className} ml-[5px] text-[14px] text-white`}>

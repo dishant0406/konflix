@@ -9,7 +9,7 @@ const Hero = ({selectedAnime, topAnimes,setSelectedAnime}) => {
   const router = useRouter()
   return (
     <div className='w-[100vw] transition-all duration-300 items-center h-[50vh] flex flex-col justify-between ' style={{
-      backgroundImage: `url(https://i.ytimg.com/vi_webp/${getYoutubeId(selectedAnime.trailer)}/maxresdefault.webp)`,
+      backgroundImage: `url(https://i.ytimg.com/vi_webp/${getYoutubeId(selectedAnime.trailer)}/sddefault.webp)`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',

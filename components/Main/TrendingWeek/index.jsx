@@ -50,7 +50,7 @@ const settings = {
         centerPadding: '20px',
         
       }
-    }
+    },
   ]
 
 }
