@@ -41,7 +41,7 @@ const Search = () => {
 
   return (
     <div>
-        <div className='w-[90vw] flex justify-between mt-[1rem]'>
+        <div className='w-[90vw] flex justify-between mt-[0.5rem] md:mt-[1rem]'>
         <p style={{
           textShadow: '0px 0px 10px rgba(0,0,0,1)'
 
