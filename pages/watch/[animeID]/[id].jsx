@@ -230,17 +230,17 @@ const Watch = () => {
           </h1>
           <div className='flex gap-[0.5rem]'>
             <div onClick={()=>setPlayingType('hls')} className='bg-black cursor-pointer flex items-center justify-center rounded-md h-[2rem] px-[10px] md:mt-[1rem]'>
-              <h1 className='text-white whitespace-nowrap text-sm font-bold'>
+              <h1 className='text-sm font-bold text-white whitespace-nowrap'>
                 Ad free
               </h1>
             </div>
             {streamingAnimeDetails?.streamsb && <div onClick={()=>setPlayingType('streamsb')} className='bg-black cursor-pointer flex items-center justify-center rounded-md h-[2rem] px-[10px] md:mt-[1rem]'>
-              <h1 className='text-white whitespace-nowrap text-sm font-bold'>
+              <h1 className='text-sm font-bold text-white whitespace-nowrap'>
                 streamsb
               </h1>
             </div>}
             {streamingAnimeDetails?.xstreamcdn && <div onClick={()=>setPlayingType('xstreamcdn')} className='bg-black cursor-pointer flex items-center justify-center rounded-md h-[2rem] px-[10px] md:mt-[1rem]'>
-              <h1 className='text-white whitespace-nowrap text-sm font-bold'>
+              <h1 className='text-sm font-bold text-white whitespace-nowrap'>
                 xstreamcdn
               </h1>
             </div>}
@@ -286,7 +286,7 @@ const Watch = () => {
             <div className='mt-[1rem] flex flex-wrap gap-[2rem] md:justify-start justify-center md:w-[90vw] w-[95vw]'>
               {
                 recommandedAnime?.map((anime, index)=>{
-                  return <AnimeCard id={anime?.animeID} title={anime?.animeTitle} image={anime?.animeImg} />
+                  return <AnimeCard id={anime?.animeId} title={anime?.animeTitle} image={anime?.animeImg} />
                 })
               }
             </div>
