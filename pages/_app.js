@@ -9,7 +9,7 @@ import "plyr-react/plyr.css"
 import { SEO } from '@/components';
 
 export const client = new ApolloClient({
-  uri: 'https://api.konflix.xyz/graphql/',
+  uri: 'https://9cqvdcys16.execute-api.us-east-1.amazonaws.com/graphql/',
   //ignore graphql errors
   onError: ({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {

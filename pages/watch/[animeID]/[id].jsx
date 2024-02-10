@@ -69,24 +69,31 @@ const AnimeListCard = ({image, currentEpisode, link, index, setCurrentEpisode,ep
 
 const OPTIONS = {
   controls: [
-    'play-large',
-    'play',
-    'progress',
-    'current-time',
-    'mute',
-    'volume',
-    'settings',
-    'pip',
-    'airplay',
-    'fullscreen',
+    'play-large', // The large play button in the center
+    'restart', // Restart playback
+    'rewind', // Rewind by the seek time (default 10 seconds)
+    'play', // Play/pause playback
+    'fast-forward', // Fast forward by the seek time (default 10 seconds)
+    'progress', // The progress bar and scrubber for playback and buffering
+    'current-time', // The current time of playback
+    'duration', // The full duration of the media
+    'mute', // Toggle mute
+    'volume', // Volume control
+    'captions', // Toggle captions
+    'settings', // Settings menu
+    'pip', // Picture-in-picture (currently Safari only)
+    'airplay', // Airplay (currently Safari only)
+    'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
+    'fullscreen', // Toggle fullscreen
   ],
-  settings: ['captions', 'quality', 'speed'],
+  settings: ['captions', 'quality', 'speed', 'loop'],
   quality: {
     default: 720,
     options: [360, 480, 720, 1080],
   },
   speed: {
     selected: 1,
+    options: [0.5, 1, 1.25, 1.5, 2],
   },
   keyboard: {
     focused: true,
@@ -150,7 +157,24 @@ const Watch = () => {
           setStreamingAnimeDetails(linksArray)
           setAnimeDetails(res.data.animeDetails)
           setStreamingLink(res.data.animeDetails?.episode_id)
-          setCurrentEpisode(linksArray?.hls)
+          let currUrl = linksArray?.hls
+          if(currUrl){
+            if(currUrl.includes('https:/')){
+              currUrl = currUrl.replace('https:/', '')
+            }
+            if(currUrl.includes('https://')){
+              currUrl = currUrl.replace('https://', '')
+            }
+            if(currUrl.includes('http://')){
+              currUrl = currUrl.replace('http://', '')
+            }
+            if(currUrl.includes('http:/')){
+              currUrl = currUrl.replace('http:/', '')
+            }
+            console.log(currUrl)
+            setCurrentEpisode(currUrl)
+          }
+         
 
           client.query({
             query: GET_RECOMMEDED_ANIME,
@@ -176,7 +200,7 @@ const Watch = () => {
     const video = document.getElementById("plyr");
     //video width 70vw
     var hls = new Hls();
-    hls.loadSource(`https://cors.konflix.xyz/${currentEpisode}`);
+    hls.loadSource(`/api/proxy/${currentEpisode}`);
     hls.attachMedia(video);
     ref.current.plyr.media = video
     hls.on(Hls.Events.MANIFEST_PARSED, function () {
